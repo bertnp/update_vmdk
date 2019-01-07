@@ -29,7 +29,9 @@ Do Until driveList.AtEndOfStream
     fname = driveList.ReadLine
     sig = driveList.ReadLine
     For Each objDrive in colDrives
-        If sig = CStr(objDrive.Signature) Then
+        If IsNull(objDrive.Signature) Then
+            MsgBox objDrive.DeviceID + ": Ignoring drive (null signature)."
+        ElseIf sig = CStr(objDrive.Signature) Then
             infoMessage = infoMessage + CStr(objDrive.DeviceID) + ": "
             infoMessage = infoMessage + fname + vbCrLf
             deviceID = "\\.\PhysicalDrive" & Mid(objDrive.DeviceID, 18)
